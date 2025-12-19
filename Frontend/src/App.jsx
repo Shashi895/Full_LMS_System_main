@@ -5,7 +5,7 @@ import Coursedetails from "./pages/pageStudents/Coursedetails";
 import MyEnrollments from "./pages/pageStudents/MyEnrollments";
 import Player from "./pages/pageStudents/Player";
 import Loading from "./components/students/Loading";
-import Educator from "./pages/pageEducator/educator";
+import Educator from "./pages/pageEducator/Educator";
 import Dashboard from "./pages/pageEducator/Dashboard";
 import AddCourse from "./pages/pageEducator/AddCourse";
 import MyCourses from "./pages/pageEducator/MyCourses";
