@@ -4,8 +4,8 @@ import { assets, dummyTestimonial } from "../../assets/assets";
 const TestimonialsSection = () => {
   return (
     <div className=" pb-4 px-8 md:px-0">
-      <h2 className=" text-3xl font-medium text-gray-800">Testimonials</h2>
-      <p className=" md:text-base text-gray-500 mt-3">
+      <h2 className=" text-4xl font-medium text-white">Testimonials</h2>
+      <p className=" md:text-base text-gray-300 mt-3">
         Here from our learners as they share their journeys of transformation,
         success, and how our <br /> platefomr has made a diffeneence in their
         lives.

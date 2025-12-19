@@ -2,6 +2,8 @@ import React, { use, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { AppContext } from "../../context/AppContext";
+import logo from "../../assets/logo.png";
+import userlogo from "../../assets/userlogo.png";
 
 const Navbar = () => {
   const isCourseListPage = location.pathname.includes("course-list");
@@ -11,13 +13,13 @@ const Navbar = () => {
 
   return (
     <div
-      className={` flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 py-1 border-gray-500  shadow-[0_0_25px_rgba(124,58,237,0.5)] rounded-full mx-10 mt-5 ${
-        isCourseListPage ? "bg-white" : " bg-cyan-100/70"
+      className={` flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 py-1 rounded-full mx-10 mt-5  ${
+        isCourseListPage ? "bg-white" : " bg-cyan-100"
       } `}
     >
       <img
         onClick={() => navigate("/")}
-        src="src/assets/logo.png"
+        src={logo}
         alt="Logo"
         className="w-28 lg:w-32 cursor-pointer"
       />
@@ -79,7 +81,7 @@ const Navbar = () => {
             }}
             className=" cursor-pointer"
           >
-            <img src="./src/assets/userlogo.png" alt="" className="w-10" />
+            <img src={userlogo} alt="" className="w-10" />
           </button>
         )}
       </div>

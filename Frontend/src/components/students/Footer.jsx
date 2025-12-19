@@ -1,5 +1,5 @@
 import React from "react";
-import { assets } from "../../assets/assets";
+import logo from "../../assets/logo.png";
 
 const Footer = () => {
   return (
@@ -9,12 +9,9 @@ const Footer = () => {
        justify-center gap-10 md:gap-32 py-10 border-b border-white/30"
       >
         <div className=" flex flex-col md:items-start items-center w-full">
-          <img src={assets.logo_dark} alt="logo" />
-          <p className=" mt-6 text-center md:text-left text-sm text-white/80">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel minus
-            repellat fugiat! Aperiam eveniet ratione aliquid. Laborum velit
-            vitae quam sapiente iste et quibusdam, ab error placeat aliquid
-            magni recusandae.
+          <img src={logo} alt="logo" className="w-20 bg-white rounded-full"/>
+          <p className=" mt-6 text-center md:text-left text-sm text-white/80 ">
+            SkillOrbit is a modern Learning Management System (LMS) designed to help students, professionals, and lifelong learners build in-demand skills through structured, interactive, and practical courses. Our platform brings together high-quality learning content, expert-led instruction, and a premium user experience to make learning accessible, engaging, and career-focused.
           </p>
         </div>
         <div className=" flex flex-col md:items-start items-center w-full">
@@ -49,7 +46,7 @@ const Footer = () => {
         </div>
       </div>
       <p className=" py-4 text-center text-xs md:text-sm text-white/60">
-        Copyright 2026 © GreatStack. All Right Reserved.{" "}
+        Copyright 2025 © SkillOrbit. All Right Reserved.{" "}
       </p>
     </footer>
   );

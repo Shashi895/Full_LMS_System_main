@@ -283,7 +283,7 @@ export const dummyCourses = [
         "createdAt": "2024-12-17T08:16:53.622Z",
         "updatedAt": "2025-01-02T04:47:44.701Z",
         "__v": 4,
-        "courseThumbnail": "https://img.youtube.com/vi/CBWnBi-awSA/maxresdefault.jpg"
+        "courseThumbnail": "https://i.postimg.cc/wjhX0vqt/java-script-course.png"
     },
     {
         "_id": "675ac1512100b91a6d9b8b24",
@@ -355,7 +355,7 @@ export const dummyCourses = [
         "createdAt": "2024-12-17T08:16:53.622Z",
         "updatedAt": "2025-01-02T06:47:54.446Z",
         "__v": 3,
-        "courseThumbnail": "https://img.youtube.com/vi/HdLIMoQkXFA/maxresdefault.jpg"
+        "courseThumbnail": "https://i.postimg.cc/VNkxj5nm/python.png"
     },
     {
         "_id": "605c72efb3f1c2b1f8e4e1ae",
@@ -421,7 +421,7 @@ export const dummyCourses = [
         "createdAt": "2024-12-27T11:30:00.000Z",
         "updatedAt": "2024-12-31T04:14:49.773Z",
         "__v": 2,
-        "courseThumbnail": "https://img.youtube.com/vi/jZFaMEqEqEQ/maxresdefault.jpg"
+        "courseThumbnail": "https://i.postimg.cc/FKHMj13m/cyber.png"
     },
     {
         "_id": "605c72efb3f1c2b1f8e4e1a7",
@@ -487,7 +487,7 @@ export const dummyCourses = [
         "createdAt": "2024-12-17T08:16:53.622Z",
         "updatedAt": "2024-12-31T05:31:27.290Z",
         "__v": 2,
-        "courseThumbnail": "https://img.youtube.com/vi/lpx2zFkapIk/maxresdefault.jpg"
+        "courseThumbnail": "https://i.postimg.cc/FKHMj134/webdev.png"
     },
     {
         "_id": "605c72efb3f1c2b1f8e4e1ac",

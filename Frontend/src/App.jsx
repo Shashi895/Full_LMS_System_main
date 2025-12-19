@@ -14,7 +14,7 @@ import Navbar from "./components/students/Navbar";
 function App() {
   const isEducatorRoute = useMatch("/educator/*");
   return (
-    <div className=" text-default min-h-screen bg-white">
+    <div className=" text-default min-h-screen pt-1 bg-linear-to-br from-[#0B0F1A] via-[#0F172A] to-[#020617] ">
       {!isEducatorRoute && <Navbar />}
 
       <Routes>
