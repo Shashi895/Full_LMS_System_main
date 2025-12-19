@@ -1,12 +1,12 @@
 import React from "react";
 import microsoft from "../../assets/microsoft logo.png";
 import tcs from "../../assets/tcs logo.png";
-import accenture from "../../assets/accenture logo.png";
+import Accenture from "../../assets/Accenture logo.png";
 import samsung from "../../assets/samsung logo.png";
 import google from "../../assets/google logo.png";
 
 const Compaines = () => {
-  const companies = [microsoft, tcs, accenture, samsung, google];
+  const companies = [microsoft, tcs, Accenture, samsung, google];
 
   return (
     <section className="pt-20 pb-10 bg-linear-to-b  ">
