@@ -5,11 +5,17 @@ import { AppContext } from "../../context/AppContext";
 import Loading from "../../components/students/Loading";
 import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
+import Footer from "../../components/students/Footer";
+
 
 const Coursedetails = () => {
   const { id } = useParams();
   const [coursedata, setcoursedata] = useState(null);
-  const { allCourse, calculaterating,calculatechaptertime,calculatecourseduration,calculatenooflecture
+  const [opensection, setopensection] = useState({});
+    const [isalreadyenrolled, setisalreadyenrolled] = useState(false);
+
+
+  const { allCourse, calculaterating,calculatechaptertime,calculatecourseduration,calculatenooflecture,currency
  } = useContext(AppContext);
   const fetchcoursedata = async () => {
     const findcourse = allCourse.find((course) => course._id === id);
@@ -18,92 +24,196 @@ const Coursedetails = () => {
   useEffect(() => {
     fetchcoursedata();
   }, []);
-  return coursedata ? (
-    <>
-      <div className=" flex md:flex-row flex-col-reverse gap-10 relative items-start justify-between md:px-36 px-8 pt-20 text-left">
-        <div className=" absolute top-0 left-0 w-full -z-10 from-cyan-100/70 h-[500px]"></div>
+  const togglesection=(idx)=>{
+    setopensection((prev)=>(
+      {...prev,[idx]: !prev[idx]}
+    ))
 
-        {/* left col  */}
-        <div className=" max-w-xl z-10 text-gray-500">
-          <h1 className=" md:text-2xl text-sm font-semibold text-gray-800">
+  }
+  return coursedata ? (
+  <>
+    {/* Hero Background */}
+    <div className="relative">
+      <div className="absolute inset-0 "></div>
+
+      {/* ✅ MOBILE PRICE CARD (TOP ONLY) */}
+      <div className="block md:hidden relative max-w-7xl mx-auto px-6 pt-24">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border">
+          <img
+            src={coursedata.courseThumbnail}
+            alt="Course Thumbnail"
+            className="w-full h-48 object-cover"
+          />
+
+          <div className="p-6">
+            <p className="text-red-500 text-sm font-medium">
+              ⏰ 5 days left at this price
+            </p>
+
+            <div className="flex items-end gap-3 mt-4">
+              <p className="text-3xl font-bold text-gray-900">
+                {currency}
+                {(
+                  coursedata.coursePrice -
+                  (coursedata.discount * coursedata.coursePrice) / 100
+                ).toFixed(2)}
+              </p>
+              <p className="line-through text-gray-400">
+                {currency}
+                {coursedata.coursePrice}
+              </p>
+              <span className="text-green-600 font-medium">
+                {coursedata.discount}% OFF
+              </span>
+            </div>
+
+            <button className="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
+              {isalreadyenrolled ? "Already Enrolled" : "Enroll Now"}
+            </button>
+            <div className="mt-6"> <h4 className="font-semibold text-lg text-gray-800"> This course includes: </h4> <ul className="mt-3 space-y-2 text-sm text-gray-600"> <li>✔ Lifetime access</li> <li>✔ Hands-on projects</li> <li>✔ Downloadable resources</li> <li>✔ Certificate of completion</li> </ul> </div>
+          </div>
+        </div>
+      </div>
+
+      {/* MAIN GRID */}
+      <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-24 pb-16 grid md:grid-cols-3 gap-10">
+        {/* LEFT SECTION */}
+        <div className="md:col-span-2 backdrop-blur-xl rounded-2xl p-8 shadow-lg border border-white">
+          <h1 className="text-3xl font-bold text-white">
             {coursedata.courseTitle}
           </h1>
 
           <p
-            className=" pt-4 text-sm "
+            className="mt-4 text-gray-300 leading-relaxed"
             dangerouslySetInnerHTML={{
-              __html: coursedata.courseDescription.slice(0, 200),
+              __html: coursedata.courseDescription.slice(0, 220),
             }}
-          ></p>
+          />
 
-          {/* review a rating  */}
-          <div className=" flex items-center space-x-2 pt-3 pb-1 text-sm">
-            <p>{calculaterating(coursedata)}</p>
-            <div className=" flex">
-              {[...Array(5)].map((_, i) => (
-                <img
-                  key={i}
-                  src={
-                    i < Math.floor(calculaterating(coursedata))
-                      ? assets.star
-                      : assets.star_blank
-                  }
-                  alt=""
-                  className=" w-3.5 h-3.5"
-                />
-              ))}
-            </div>
-            <p className=" text-blue-600">
-              ({coursedata.courseRatings.length}
-              {coursedata.courseRatings.length > 1 ? "ratings" : "rating"})
-            </p>
-            <p>{coursedata.enrolledStudents.length}{coursedata.enrolledStudents.length > 1 ? 'student': 'studens'}</p>
+          <div className="flex flex-wrap items-center gap-3 mt-5 text-sm">
+            <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full font-medium">
+              ⭐ {calculaterating(coursedata)}
+            </span>
+            <span className="text-white">
+              {coursedata.courseRatings.length} Ratings
+            </span>
+            <span className="text-white">
+              {coursedata.enrolledStudents.length} Students
+            </span>
           </div>
 
-          <p className=" text-sm">Course By <span className=" text-blue-600 underline">shashi</span></p>
-          <div className=" pt-8 text-gray-800">
-            <h2 className=" text-xl font-semibold">Course Structure</h2>
-            <div className=" pt-5">
-              {coursedata.courseContent.map((chapter,idx)=>(
-                <div className=" border border-gray-300 bg-white mb-2 rounded" key={idx}>
-                  <div className=" flex items-center justify-between px-4 py-3 cursor-pointer select-none">
-                    <div className=" flex items-center gap-2">
-                      <img src={assets.down_arrow_icon} alt="down arrow" />
-                      <p className=" font-medium md:text-base text-sm ">{chapter.chapterTitle}</p>
-                    </div>
-                    <p className=" text-sm">{chapter.chapterContent.length} lectures - {calculatechaptertime(chapter)}</p>
+          <p className="mt-4 text-sm text-white">
+            Created by{" "}
+            <span className="text-indigo-600 font-medium underline">
+              Shashi
+            </span>
+          </p>
+
+          {/* Course Content */}
+          <div className="mt-10">
+            <h2 className="text-2xl font-semibold text-white">
+              Course Content
+            </h2>
+
+            <div className="mt-5 space-y-3">
+              {coursedata.courseContent.map((chapter, idx) => (
+                <div key={idx} className="border rounded-xl bg-white">
+                  <div
+                    onClick={() => togglesection(idx)}
+                    className="flex justify-between items-center px-5 py-4 cursor-pointer hover:bg-gray-50"
+                  >
+                    <p className="font-medium text-gray-800">
+                      {chapter.chapterTitle}
+                    </p>
+                    <span className="text-sm text-gray-500">
+                      {chapter.chapterContent.length} lectures •{" "}
+                      {calculatechaptertime(chapter)}
+                    </span>
                   </div>
-                  <div className=" overflow-hidden  transition-all duration-300 max-h-96">
-                    <ul className=" list-disc md:pl-10 pr-4 py-2 text-gray-600 border-t border-gray-300">
-                      {chapter.chapterContent.map((lecture,idx)=>(
-                        <li key={idx} className=" flex items-start gap-2 py-1">
-                          <img src={assets.play_icon} alt=""  className=" w-4 h-4 mt-1
-                        "/>
-                        <div className=" flex items-center justify-between w-full text-gray-800 text-xs md:text-default">
-                          <p >{lecture.lectureTitle}</p>
-                          <div className=" flex gap-2">
-                            {lecture.isPreviewFree && <p className=" text-blue-500 cursor-pointer">Preview</p>}
-                            <p>{humanizeDuration(lecture.lectureDuration * 60* 1000,{units:['h','m']})}</p>
-                          </div>
-                        </div>
+
+                  {opensection[idx] && (
+                    <ul className="px-8 pb-4 space-y-2 text-sm">
+                      {chapter.chapterContent.map((lecture, i) => (
+                        <li
+                          key={i}
+                          className="flex justify-between items-center"
+                        >
+                          <span>{lecture.lectureTitle}</span>
+                          <span className="text-gray-500">
+                            {humanizeDuration(
+                              lecture.lectureDuration * 60 * 1000,
+                              { units: ["h", "m"] }
+                            )}
+                          </span>
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  )}
                 </div>
               ))}
             </div>
+          </div>
 
+          {/* Full Description */}
+          <div className="mt-14">
+            <h3 className="text-2xl font-semibold text-white">
+              Course Description
+            </h3>
+            <div
+              className="mt-4 text-gray-600"
+              dangerouslySetInnerHTML={{
+                __html: coursedata.courseDescription,
+              }}
+            />
           </div>
         </div>
 
-        {/* rigth col  */}
-        <div></div>
+        {/* ✅ DESKTOP STICKY PRICE CARD */}
+        <div className="hidden md:block sticky top-24 h-fit bg-white rounded-2xl shadow-xl overflow-hidden border">
+          <img
+            src={coursedata.courseThumbnail}
+            alt="Course Thumbnail"
+            className="w-full h-48 object-cover"
+          />
+
+          <div className="p-6">
+            <p className="text-red-500 text-sm font-medium">
+              ⏰ 5 days left at this price
+            </p>
+
+            <div className="flex items-end gap-3 mt-4">
+              <p className="text-4xl font-bold text-gray-900">
+                {currency}
+                {(
+                  coursedata.coursePrice -
+                  (coursedata.discount * coursedata.coursePrice) / 100
+                ).toFixed(2)}
+              </p>
+              <p className="line-through text-gray-400">
+                {currency}
+                {coursedata.coursePrice}
+              </p>
+              <span className="text-green-600 font-medium">
+                {coursedata.discount}% OFF
+              </span>
+            </div>
+
+            <button className="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
+              {isalreadyenrolled ? "Already Enrolled" : "Enroll Now"}
+            </button>
+            <div className="mt-6"> <h4 className="font-semibold text-lg text-gray-800"> This course includes: </h4> <ul className="mt-3 space-y-2 text-sm text-gray-600"> <li>✔ Lifetime access</li> <li>✔ Hands-on projects</li> <li>✔ Downloadable resources</li> <li>✔ Certificate of completion</li> </ul> </div>
+          </div>
+        </div>
       </div>
-    </>
-  ) : (
-    <Loading />
-  );
+    </div>
+
+    <Footer />
+  </>
+) : (
+  <Loading />
+);
+
+
 };
 
 export default Coursedetails;
